@@ -36,9 +36,14 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'responsable' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'responsables',
+        ],
+    
+        'membre' => [
+            'driver' => 'session',
+            'provider' => 'membres',
         ],
     ],
 
@@ -60,15 +65,15 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'responsables' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Responsable::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+    
+        'membres' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Membre::class,
+        ],
     ],
 
     /*

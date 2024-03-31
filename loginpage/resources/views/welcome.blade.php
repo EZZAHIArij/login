@@ -3,8 +3,8 @@
 <head>
   
     <title>SJE performance tracker</title>
-    <link rel="icon" href="{{ asset('images/434134192_783730273679533_5794188159581194881_n.png') }}">
-" type="image/png">
+    <link rel="icon" href="{{ asset('images/434134192_783730273679533_5794188159581194881_n.png') }}" type="image/png">
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
@@ -141,12 +141,12 @@ form.second-form {
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form method="POST" action="{{ route('login', ['role' => request()->query('role')]) }}">
+    <form method="POST" id="loginForm" action="{{ route('login.responsable') }}">
     @csrf
         <h3>Welcome Back!</h3>
         <div class="role">
             <div id="responsable" >  Responsable</div>
-            <div id="membre" style="margin-left:25px" >  Membre</div>
+            <div id="membre" style="margin-left:25px" class="selected" >  Membre</div>
           </div>
 
         <label for="username">Username</label>
@@ -161,34 +161,47 @@ form.second-form {
     <form class="second-form" style="margin-left: 400px;"></form>
 </body>
 <script>
-    
     document.addEventListener('DOMContentLoaded', function() {
-            // Set the "Membre" role as selected by default
-            document.getElementById('membre').classList.add('selected');
-            // Update the URL accordingly
-            updateURL('membre');
+        // Update form action when the DOM is loaded
+        updateFormAction();
 
-            // Add event listeners to the role divs
-            document.getElementById('responsable').addEventListener('click', function() {
-                document.getElementById('responsable').classList.add('selected');
-                document.getElementById('membre').classList.remove('selected');
-                updateURL('responsable');
-            });
-
-            document.getElementById('membre').addEventListener('click', function() {
-                document.getElementById('membre').classList.add('selected');
-                document.getElementById('responsable').classList.remove('selected');
-                updateURL('membre');
-            });
+        // Add event listeners to role divs to update form action when clicked
+        document.getElementById('responsable').addEventListener('click', function() {
+            updateFormAction('responsable');
+            updateRoleStyle('responsable');
         });
-        
 
-    function updateURL(role) {
-        // Get the current URL without the parameters
-        let url = window.location.href.split('?')[0];
-        // Update the URL with the role parameter
-        window.history.replaceState({}, '', `${url}?role=${role}`);
+        document.getElementById('membre').addEventListener('click', function() {
+            updateFormAction('membre');
+            updateRoleStyle('membre');
+        });
+    });
+
+    function updateFormAction(role) {
+        // Set the default route name
+        let route = "/login/responsable";
+
+        // Update the route based on the selected role
+        if (role === 'membre') {
+            route = "/login/membre";
+        }
+
+        // Update the form action with the appropriate route
+        document.getElementById('loginForm').action = route;
+    }
+
+    function updateRoleStyle(selectedRole) {
+        const roleDivs = document.querySelectorAll('.role div');
+        roleDivs.forEach(div => {
+            if (div.id === selectedRole) {
+                div.classList.add('selected');
+            } else {
+                div.classList.remove('selected');
+            }
+        });
     }
 </script>
+
+
 
 </html>
