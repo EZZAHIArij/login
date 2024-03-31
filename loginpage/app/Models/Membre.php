@@ -2,12 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Member extends Model
+class Responsable extends Authenticatable
 {
-    public function projects()
+    protected $fillable = [
+        'email', 'password',
+    ];
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    public function projects(): BelongsToMany
     {
         return $this->belongsToMany(Project::class);
     }

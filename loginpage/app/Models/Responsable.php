@@ -2,10 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Responsable extends Model
+class Responsable extends Authenticatable
 {
     use HasFactory;
+
+    protected $fillable = [
+        'email', 'password',
+    ];
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 }

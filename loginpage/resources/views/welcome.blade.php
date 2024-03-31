@@ -150,10 +150,10 @@ form.second-form {
           </div>
 
         <label for="username">Username</label>
-        <input type="text" placeholder="email" id="username">
+        <input type="text" placeholder="email" id="username" name="email" >
 
         <label for="password">Password</label>
-        <input type="password" placeholder="Password" id="password">
+        <input type="password" name="password" placeholder="Password" id="password">
 
         <button>Log In</button>
         
